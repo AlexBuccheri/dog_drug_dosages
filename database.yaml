@@ -1,0 +1,29 @@
+# Dose in mg/kg
+# Concentration in mg/ml
+Medetomidine:
+  dose: 0.015
+  concentration: 1
+Methadone:
+  dose: 0.3
+  concentration: 10
+Suprenorphine:
+  dose: 0.02
+  concentration: 0.3
+Butorphanol:
+  dose: 0.2
+  concentration: 10
+Atipam:
+  dose: 0.075
+  concentration: 5
+Adrenaline:
+  dose: 0.02
+  concentration: 10
+Lidocaine toxic dose:
+  dose: 4
+  concentration: 10
+Onsior:
+  dose: 2
+  concentration: 20
+Meloxicam:
+  dose: 0.2
+  concentration: 5
