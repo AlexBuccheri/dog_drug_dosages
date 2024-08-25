@@ -1,10 +1,19 @@
 # Dose in mg/kg
 # Concentration in mg/ml
 Medetomidine:
-  dose: 0.015
+  default dose: 0.005
+  doses:
+    - 0.005
+    - 0.01
+    - 0.015
+    - 0.02
+    - 0.025
   concentration: 1
 Methadone:
-  dose: 0.3
+  default dose: 0.2
+  doses:
+    - 0.2
+    - 0.3
   concentration: 10
 Buprenorphine:
   dose: 0.02
@@ -13,7 +22,7 @@ Butorphanol:
   dose: 0.2
   concentration: 10
 Atipam:
-  dose: 0.075
+  dose: 0.025
   concentration: 5
 Adrenaline:
   dose: 0.02
