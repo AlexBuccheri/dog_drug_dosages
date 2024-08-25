@@ -6,7 +6,7 @@ Medetomidine:
 Methadone:
   dose: 0.3
   concentration: 10
-Suprenorphine:
+Buprenorphine:
   dose: 0.02
   concentration: 0.3
 Butorphanol:
