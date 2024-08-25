@@ -1,8 +1,8 @@
 # Dose in mg/kg
 # Concentration in mg/ml
 Medetomidine:
-  default dose: 0.005
-  doses:
+  default_dose: 0.005
+  dose_options:
     - 0.005
     - 0.01
     - 0.015
@@ -10,29 +10,36 @@ Medetomidine:
     - 0.025
   concentration: 1
 Methadone:
-  default dose: 0.2
-  doses:
+  default_dose: 0.2
+  dose_options:
     - 0.2
     - 0.3
   concentration: 10
 Buprenorphine:
-  dose: 0.02
+  default_dose: 0.02
+  dose_options:
   concentration: 0.3
 Butorphanol:
-  dose: 0.2
+  default_dose: 0.2
+  dose_options:
   concentration: 10
 Atipam:
-  dose: 0.025
+  default_dose: 0.025
+  dose_options:
   concentration: 5
 Adrenaline:
-  dose: 0.02
+  default_dose: 0.02
+  dose_options:
   concentration: 10
 Lidocaine toxic dose:
-  dose: 4
+  default_dose: 4
+  dose_options:
   concentration: 10
 Onsior:
-  dose: 2
+  default_dose: 2
+  dose_options:
   concentration: 20
 Meloxicam:
-  dose: 0.2
+  default_dose: 0.2
+  dose_options:
   concentration: 5
