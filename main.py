@@ -33,7 +33,12 @@ def main():
     with open('database.yaml', 'r') as fid:
         drug_database = yaml.safe_load(fid)
 
-    weight_kg = st.number_input("Enter the animal weight (kg):", min_value=0.0, step=0.1)
+    weight_kg = st.slider("Select the animal's weight (kg):",
+                          min_value=0.0, max_value=80.0, step=0.1)
+    st.write("weight:", weight_kg)
+
+
+
     selected_drugs = st.multiselect("Select the drugs:", list(drug_database.keys()))
     dose = {}
 
