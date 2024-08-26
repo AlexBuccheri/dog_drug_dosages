@@ -11,3 +11,8 @@ streamlit run main.py
 You can then view your Streamlit app in your browser:
 * Local URL: http://localhost:8501
 * Network URL: http://192.168.0.10:8501
+
+
+## Drugs Tabulated
+
+See [here](database.yaml)

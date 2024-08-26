@@ -35,10 +35,6 @@ def main():
 
     weight_kg = st.number_input("Enter the animal weight (kg):", min_value=0.0, step=0.1)
     selected_drugs = st.multiselect("Select the drugs:", list(drug_database.keys()))
-    dose = {}
-
-    # TODO. Need to prune drugs_with_dose_ranges, such that it's the intersection of drugs_with_dose_ranges and selected_drugs
-    # But do not know how to do this, when selected_drugs is a streamlit object
 
     # Assign drugs with a dosage options
     drugs_with_dose_ranges = set()
@@ -46,29 +42,28 @@ def main():
         if drug_database[name]['dose_options'] is not None:
             drugs_with_dose_ranges.add(name)
 
-    for name in drugs_with_dose_ranges:
-        min_val = min(drug_database[name]['dose_options'])
-        max_val = max(drug_database[name]['dose_options'])
-        # Note, this assumes that the value spacing is linear!
-        dx = drug_database[name]['dose_options'][1] - drug_database[name]['dose_options'][0]
-        dose[name] = st.number_input(f"Enter the dose (ml per kg) for {name}. "
-                                     "If no value is entered, the default is used:",
-                                     min_value=min_val,
-                                     max_value=max_val,
-                                     step=dx,
-                                     key=name)
-
-    # TODO. Need to prune drugs_with_fixed_dose, such that it's the intersection of drugs_with_fixed_dose and selected_drugs
-    # But do not know how to do this, when selected_drugs is a streamlit object
-
-    # Assign drugs with a fixed dose
-    drugs_with_fixed_dose = {name for name in drug_database.keys()} - drugs_with_dose_ranges
-
-    for name in drugs_with_fixed_dose:
-        dose[name] = st.number_input(f"Enter the dose (ml per kg) for {name}. "
-                                     "Default dosage supplied:",
-                                     value=drug_database[name]['default_dose'],
-                                     key=name)
+    dose = {}
+    for name in selected_drugs:
+        # Note, Atipam will still be erroneous in the pop-up box. This is ignored in the calculation
+        # and so that specific pop-up should ideally be removed
+        if name in drugs_with_dose_ranges:
+            min_val = min(drug_database[name]['dose_options'])
+            max_val = max(drug_database[name]['dose_options'])
+            # Note, this assumes that the value spacing is linear!
+            dx = drug_database[name]['dose_options'][1] - drug_database[name]['dose_options'][0]
+            dose[name] = st.number_input(f"Enter the dose (mg per kg) for {name}. "
+                                         "If no value is entered, the default is used:",
+                                         min_value=min_val,
+                                         max_value=max_val,
+                                         step=dx,
+                                         format="%.5f",
+                                         key=name)
+        else:
+            dose[name] = st.number_input(f"Enter the dose (mg per kg) for {name}. "
+                                         "Default dosage supplied:",
+                                         value=float(drug_database[name]['default_dose']),
+                                         format="%.5f",
+                                         key=name)
 
     df_contents = []
     if st.button("Calculate"):
@@ -80,12 +75,14 @@ def main():
                 st.write(f'Using the default dose for {name} of {dose[name]} (ml/kg)')
 
             # Exception for Atipam
-            if name is 'Atipam':
+            if name == 'Atipam':
                 current_names = [entry['Drug'] for entry in df_contents]
                 if not 'Medetomidine' in current_names:
                     raise ValueError('User must specify Medetomidine before Atipam')
                 i = current_names.index('Medetomidine')
                 vol = df_contents[i]['Volume to Give (ml)']
+                dose[name] = vol * drug_database[name]['concentration'] / weight_kg.real
+
             else:
                 vol = volume_dose(drug_database, name, weight_kg, dose[name])
 
